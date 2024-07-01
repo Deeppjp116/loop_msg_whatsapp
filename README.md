@@ -1,69 +1,51 @@
-# Chrome Media Pause/Resume Extension
+# Chrome Script Injection
 
-This Chrome extension stops audio and video when the Chrome window is inactive and resumes playback when the Chrome window becomes active again. This works across all URLs, not just specific ones like YouTube and other media platforms.
+This repository provides a script to automate sending messages in a specific web application. The script prompts the user for a message and the number of times to send it, then automates the process of inputting and sending the message.
 
-## Features
+## How to Use
 
-- Pauses all audio and video when the Chrome window is inactive.
-- Resumes playback when the Chrome window becomes active.
-- Works on all websites.
+Follow the steps below to inject and execute the script in the Chrome console.
 
-## Installation
+### Step 1: Open Developer Tools
 
-1. **Clone or download this repository:**
+1. Open Google Chrome.
+2. Navigate to the web application where you want to inject the script.
+3. Right-click on the webpage and select `Inspect`, or press `Ctrl+Shift+I` (Windows/Linux) or `Cmd+Option+I` (Mac) to open the Developer Tools.
 
-    ```sh
-    git clone https://github.com/your-username/chrome-media-pause-resume.git
-    cd chrome-media-pause-resume
-    ```
+### Step 2: Navigate to the Console Tab
 
-2. **Load the extension in Chrome:**
+1. In the Developer Tools pane, click on the `Console` tab.
+2. You should see a console where you can type and execute JavaScript code.
 
-    1. Open Chrome and go to `chrome://extensions/`
-    2. Enable "Developer mode" by toggling the switch on the top right.
-    3. Click "Load unpacked" and select the folder containing the extension files.
+### Step 3: Paste and Execute the Script
 
-## Usage
-
-Once the extension is loaded, it will automatically handle pausing and resuming media based on the window's activity status. You don't need to perform any manual actions for the extension to work.
-
-### Injecting the Script via Chrome Console (for testing)
-
-If you want to inject the script directly via the Chrome console for testing, follow these steps:
-
-1. **Open the Chrome Developer Tools:**
-
-    - Right-click on the webpage and select "Inspect" or press `Ctrl+Shift+I` (Windows/Linux) or `Cmd+Option+I` (Mac).
-
-2. **Go to the Console tab.**
-
-3. **Copy and paste the following script into the console and press Enter:**
-
+1. Copy the entire script provided below:
     ```javascript
-    // JavaScript code to pause/resume media based on window activity
-    (function() {
-        var videos = document.querySelectorAll('video');
-        var audios = document.querySelectorAll('audio');
-
-        function pauseMedia() {
-            videos.forEach(video => video.pause());
-            audios.forEach(audio => audio.pause());
-        }
-
-        function playMedia() {
-            videos.forEach(video => video.play());
-            audios.forEach(audio => audio.play());
-        }
-
-        window.addEventListener('blur', pauseMedia);
-        window.addEventListener('focus', playMedia);
-    })();
+    var message = prompt('Enter your message', '‎');
+    var counter = parseInt(prompt('How many Times ?', 10));
+    window.InputEvent = window.Event || window.InputEvent;
+    var event = new InputEvent('input', { bubbles: true });
+    var textbox = document.getElementsByClassName(
+      'selectable-text copyable-text x15bjb6t x1n2onr6'
+    )[1];
+    for (let index = 0; index < counter; index++) {
+      textbox.innerHTML = message;
+      textbox.dispatchEvent(event);
+      document
+        .getElementsByClassName(
+          'x1c4vz4f x2lah0s xdl72j9 xfect85 x1iy03kw x1lfpgzf'
+        )[0]
+        .click();
+      console.log(index);
+    }
     ```
+2. Paste the script into the console and press `Enter`.
 
-## Contributing
+### Notes
 
-Contributions are welcome! Please open an issue or submit a pull request with any improvements or bug fixes.
+- Ensure that you are on the correct page of the web application where the script needs to be injected.
+- The script is designed for a specific web application structure. If the class names or the structure of the web application changes, the script might need to be updated accordingly.
 
-## License
+## Disclaimer
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This script is provided for educational purposes only. Use it responsibly and ensure that you comply with the terms of service of the web application you are automating. The author is not responsible for any misuse of this script.
